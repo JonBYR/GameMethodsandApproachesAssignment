@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,5 +8,6 @@ public class TileType
 {
     public string name; //name of tile
     public GameObject visualPrefab;
+    public float movementCost;
     //public bool walkable = true;
 }
