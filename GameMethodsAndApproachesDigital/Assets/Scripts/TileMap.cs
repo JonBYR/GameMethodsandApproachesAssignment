@@ -64,7 +64,11 @@ public class TileMap : MonoBehaviour
                 tiles[x, y] = 0;
             }
         }
-        
+        tiles[1, 2] = 1;
+        tiles[1, 3] = 1;
+        tiles[1, 4] = 1;
+        tiles[1, 5] = 1;
+        tiles[1, 6] = 1;
     }
     void GenerateGraph()
     {
