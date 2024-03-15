@@ -9,6 +9,7 @@ public class TileMap : MonoBehaviour
     
     //tutorial: https://www.youtube.com/watch?v=2xXLhbQnHV4
     public GameObject player; //should actually be any unit rather than player
+    public List<GameObject> enemies;
     public TileType[] tileTypes; //TileType will establish if a tile at positrion x,y is of a floor or a wall
     int[,] tiles; //2D array
     Node[,] graph;
@@ -21,6 +22,12 @@ public class TileMap : MonoBehaviour
         player.GetComponent<Player>().tileX = (int)player.transform.position.x;
         player.GetComponent<Player>().tileY = (int)player.transform.position.y;
         player.GetComponent<Player>().map = this;
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.GetComponent<Enemy>().tileX = (int)enemy.transform.position.x;
+            enemy.GetComponent<Enemy>().tileY = (int)enemy.transform.position.y;
+            enemy.GetComponent<Enemy>().map = this;
+        }
         tiles = new int[mapSizeX, mapSizeY];
         for(int x = 0; x < mapSizeX; x++)
         {
@@ -37,6 +44,11 @@ public class TileMap : MonoBehaviour
     {
         TileType t = tileTypes[tiles[x, y]];
         return t.movementCost; //walls would have a huge cost to ensure it is undesirable to enter
+    }
+    public void setCost(int x, int y, int value)
+    {
+        TileType t = tileTypes[tiles[x, y]];
+        t.movementCost = value;
     }
     // Update is called once per frame
     void Update()
@@ -154,6 +166,73 @@ public class TileMap : MonoBehaviour
         player.GetComponent<Player>().canMove = true;
         InvokeRepeating("MoveUnit", 0f, 1f);
     }
+    public void MoveToPlayer(int x, int y)
+    {
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.GetComponent<Enemy>().currentPath = null;
+            Node source = graph[enemy.GetComponent<Enemy>().tileX, enemy.GetComponent<Enemy>().tileY]; //starting position for player
+            setCost(enemy.GetComponent<Enemy>().tileX, enemy.GetComponent<Enemy>().tileY, 0);
+            Node target = graph[x, y];
+            Dictionary<Node, float> dist = new Dictionary<Node, float>();
+            Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
+            dist[source] = 0; //source node has no distance as it defined
+            prev[source] = null; //not moved
+            List<Node> unvisted = new List<Node>();
+            foreach (Node n in graph) //initialise all nodes to have infinite distance
+            {
+                if (n != source)
+                {
+                    dist[n] = Mathf.Infinity;
+                    prev[n] = null;
+                }
+                unvisted.Add(n); //add all nodes that have not been vistied yet
+            }
+            while (unvisted.Count > 0)
+            {
+                Node u = null;
+                foreach (Node possible in unvisted) //u will be the unvisted node with the smallest distance as it is not infinity
+                {
+                    if (u == null || dist[possible] < dist[u])
+                    {
+                        u = possible;
+                    }
+                }
+                if (u == target) break; //if current node is target node we no longer are calculating the path
+                unvisted.Remove(u);
+                foreach (Node v in u.neighbours) //looks through the neighbours of the vertex
+                {
+                    float temp = dist[u] + CostOfTile(v.x, v.y);
+                    if (temp < dist[v])
+                    {
+                        dist[v] = temp;
+                        prev[v] = u;
+                    }
+
+                }
+            }
+            if (prev[target] == null) //no route
+            {
+                return;
+            }
+            currentPath = new List<Node>();
+            Node curr = target;
+            while (curr != null)
+            {
+                currentPath.Add(curr);
+                curr = prev[curr]; //gets the previous Node from the path
+            }
+            currentPath.Reverse(); //unit needs to start from
+            enemy.GetComponent<Enemy>().currentPath = currentPath;
+        }
+        foreach(GameObject enemy in enemies)
+        {
+            while(enemy.GetComponent<Enemy>().currentPath != null) 
+            {
+                enemy.GetComponent<Enemy>().MoveNextTile();
+            }
+        }
+    }
     void MoveUnit()
     {
         player.GetComponent<Player>().MoveNextTile();
@@ -161,5 +240,9 @@ public class TileMap : MonoBehaviour
         {
             CancelInvoke("MoveUnit");
         }
+    }
+    void MoveEnemy(GameObject enemy)
+    {
+
     }
 }
