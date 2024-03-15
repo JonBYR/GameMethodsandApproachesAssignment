@@ -9,5 +9,6 @@ public class TileType
     public string name; //name of tile
     public GameObject visualPrefab;
     public float movementCost;
+    public bool isClickable;
     //public bool walkable = true;
 }

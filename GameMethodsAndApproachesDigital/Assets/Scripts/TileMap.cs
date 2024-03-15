@@ -114,6 +114,8 @@ public class TileMap : MonoBehaviour
     }
     public void MoveTo(int x, int y) //Dijsktra's algorithm
     {
+        TileType tile = tileTypes[tiles[x, y]];
+        if (tile.isClickable == false) return;
         player.GetComponent<Player>().currentPath = null;
         Node source = graph[player.GetComponent<Player>().tileX, player.GetComponent<Player>().tileY]; //starting position for player
         Node target = graph[x, y];
