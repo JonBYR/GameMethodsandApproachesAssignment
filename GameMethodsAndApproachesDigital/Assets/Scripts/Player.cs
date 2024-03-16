@@ -51,4 +51,23 @@ public class Player : MonoBehaviour
             enemyFound = false;
         }
     }
+    public void moving(string direction, int moves)
+    {
+        if (direction == "right")
+        {
+            map.MoveTo(tileX+moves,tileY);
+        }
+        else if (direction == "left")
+        {
+            map.MoveTo(tileX - moves, tileY);
+        }
+        else if (direction == "up")
+        {
+            map.MoveTo(tileX, tileY + moves);
+        }
+        else if(direction == "down")
+        {
+            map.MoveTo(tileX, tileY - moves);
+        }
+    }
 }
