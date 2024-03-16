@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
             tileY = currentPath[0].y;
             currentPath = null;
             canMove = false;
+            map.setPlayerNode(tileX, tileY);
             map.MoveToPlayer(tileX, tileY);
         }
     }

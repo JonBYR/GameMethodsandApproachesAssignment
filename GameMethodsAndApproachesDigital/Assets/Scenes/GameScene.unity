@@ -179,6 +179,7 @@ MonoBehaviour:
     visualPrefab: {fileID: 1055685508511795179, guid: 87bde77f3fe274f4fba46a132c5f2b16, type: 3}
     movementCost: 1e+10
     isClickable: 0
+  playerMovement: 5
 --- !u!1 &1291334340
 GameObject:
   m_ObjectHideFlags: 0

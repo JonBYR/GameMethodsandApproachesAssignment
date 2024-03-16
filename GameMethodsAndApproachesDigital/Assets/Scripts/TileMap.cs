@@ -11,6 +11,8 @@ public class TileMap : MonoBehaviour
     public GameObject player; //should actually be any unit rather than player
     public List<GameObject> enemies;
     public TileType[] tileTypes; //TileType will establish if a tile at positrion x,y is of a floor or a wall
+    Node playerNode;
+    public float playerMovement;
     int[,] tiles; //2D array
     Node[,] graph;
     List<Node> currentPath = null;
@@ -112,10 +114,31 @@ public class TileMap : MonoBehaviour
     {
         return new Vector3(x, y, 0);
     }
+    public void setPlayerNode(int x, int y)
+    {
+        playerNode = graph[x, y];
+    }
+    public Node getPlayerNode()
+    {
+        return playerNode;
+    }
+    public bool PlayerFound(int x, int y)
+    {
+        if(x == playerNode.x && y == playerNode.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void MoveTo(int x, int y) //Dijsktra's algorithm
     {
         TileType tile = tileTypes[tiles[x, y]];
         if (tile.isClickable == false) return;
+        Transform playerTransform = player.GetComponent<Transform>();
+        if (Vector3.Distance(playerTransform.position, TileCoordToWorldCoord(x, y)) >= playerMovement) return;
         player.GetComponent<Player>().currentPath = null;
         Node source = graph[player.GetComponent<Player>().tileX, player.GetComponent<Player>().tileY]; //starting position for player
         Node target = graph[x, y];
