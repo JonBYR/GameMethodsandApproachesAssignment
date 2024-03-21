@@ -25,6 +25,6 @@ public class PlayerInstructions : MonoBehaviour
         Debug.Log(words[0]);
         Debug.Log(words[1]);
         if (int.Parse(words[1]) >= 4) return;
-        p.moving(words[0], int.Parse(words[1]));
+        StartCoroutine(p.moving(words[0], int.Parse(words[1])));
     }
 }

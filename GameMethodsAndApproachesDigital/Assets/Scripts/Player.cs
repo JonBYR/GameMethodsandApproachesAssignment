@@ -51,23 +51,63 @@ public class Player : MonoBehaviour
             enemyFound = false;
         }
     }
-    public void moving(string direction, int moves)
+    public IEnumerator moving(string direction, int moves)
     {
-        if (direction == "right")
+        for(int i = 0; i < moves; i++)
         {
-            map.MoveTo(tileX+moves,tileY);
+            if(direction == "right")
+            {
+                if (map.validMove(tileX + 1, tileY))
+                {
+                    tileX = tileX + 1;
+                }
+                else break;
+            }
+            else if (direction == "left")
+            {
+                if (map.validMove(tileX - 1, tileY))
+                {
+                    tileX = tileX - 1;
+                }
+                else break;
+            }
+            else if (direction == "up")
+            {
+                if (map.validMove(tileX, tileY + 1))
+                {
+                    tileY = tileY + 1;
+                }
+                else break;
+            }
+            else if (direction == "down")
+            {
+                if (map.validMove(tileX, tileY - 1))
+                {
+                    tileY = tileY - 1;
+                }
+                else break;
+            }
+            transform.position = map.TileCoordToWorldCoord(tileX, tileY);
+            yield return new WaitForSeconds(1f);
         }
-        else if (direction == "left")
-        {
-            map.MoveTo(tileX - moves, tileY);
-        }
-        else if (direction == "up")
-        {
-            map.MoveTo(tileX, tileY + moves);
-        }
-        else if(direction == "down")
-        {
-            map.MoveTo(tileX, tileY - moves);
-        }
+        transform.position = map.TileCoordToWorldCoord(tileX, tileY);
+        map.setPlayerNode(tileX, tileY);
+        map.MoveToPlayer(tileX, tileY);
+        //if (direction == "right")
+        //{
+        //    map.MoveTo(tileX+moves,tileY);
+        //}
+        //else if (direction == "left")
+        //{
+        //    map.MoveTo(tileX - moves, tileY);
+        //}
+        //else if (direction == "up")
+        //{
+        //    map.MoveTo(tileX, tileY + moves);
+        //}
+        //else if(direction == "down")
+        //{
+        //    map.MoveTo(tileX, tileY - moves);
+        //}
     }
 }

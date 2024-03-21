@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private int originalFind;
     private GameObject player;
     public float threshold;
+    public float stepSize = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,25 +32,40 @@ public class Enemy : MonoBehaviour
         nodeCount++;
         currentPath.RemoveAt(0);
         if(find >= currentPath.Count) { find = currentPath.Count - 1; }
-        transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].y);
         bool foundPlayer = map.PlayerFound(currentPath[0 + find].x, currentPath[0 + find].y);
-        if (foundPlayer)
+        Vector3 attackDist = transform.position - player.transform.position;
+        attackDist.Normalize();
+        float totalDist = Vector3.Distance(transform.position, player.transform.position);
+        bool canAttack = true;
+        for (float i = 0; i < totalDist; i += stepSize)
+        {
+            Vector3 tempPosition = transform.position - attackDist.normalized * i;
+            Debug.Log("Current position" + tempPosition.x + " " + tempPosition.y);
+            if (!map.isFloor((int)tempPosition.x, (int)tempPosition.y))
+            {
+                canAttack = false;
+                break;
+            }
+        }
+        if (foundPlayer && canAttack)
         {
             Attack();
-            tileX = currentPath[0].x;
-            tileY = currentPath[0].y;
-            transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].y);
+            //tileX = currentPath[0].x;
+            //tileY = currentPath[0].y;
+            //transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].y);
             currentPath = null;
             nodeCount = 0;
             find = originalFind;
+            return;
         }
         else
         {
-            if (currentPath.Count == 2) //destination
+            if (currentPath.Count == 1) //destination
             {
-                tileX = currentPath[1].x;
-                tileY = currentPath[1].y;
+                //tileX = currentPath[1].x;
+                //tileY = currentPath[1].y;
                 //map.setCost(tileX, tileY, 1000000000);
+                //transform.position = map.TileCoordToWorldCoord(currentPath[1].x, currentPath[1].y);
                 currentPath = null;
                 nodeCount = 0;
                 find = originalFind;
@@ -68,7 +84,7 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         Debug.Log("Called");
-        float chanceToHit = Random.Range(0, 1);
+        float chanceToHit = Random.Range(0f, 1f);
         if(chanceToHit <= threshold)
         {
             Debug.Log("Hit");

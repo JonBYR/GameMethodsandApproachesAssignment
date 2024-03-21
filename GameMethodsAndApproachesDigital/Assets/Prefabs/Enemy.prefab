@@ -100,5 +100,5 @@ MonoBehaviour:
   tileX: 0
   tileY: 0
   map: {fileID: 0}
-  find: 3
+  find: 2
   threshold: 0.4
