@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
         for (float i = 0; i < totalDist; i += stepSize)
         {
             Vector3 tempPosition = transform.position - attackDist.normalized * i;
-            Debug.Log("Current position" + tempPosition.x + " " + tempPosition.y);
             if (!map.isFloor((int)tempPosition.x, (int)tempPosition.y))
             {
                 canAttack = false;
@@ -88,7 +87,7 @@ public class Enemy : MonoBehaviour
         if(chanceToHit <= threshold)
         {
             Debug.Log("Hit");
-            Destroy(player);
+            PlayerHealth.TakeDamage();
         }
         else
         {

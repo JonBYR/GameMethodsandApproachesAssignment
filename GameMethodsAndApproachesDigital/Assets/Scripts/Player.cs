@@ -10,9 +10,15 @@ public class Player : MonoBehaviour
     public TileMap map;
     public bool canMove = false;
     bool enemyFound = false;
+    public bool canAttackEnemy = false;
+    public GameObject attackField;
+    public static bool moved = false;
+    public float stepSize = 0.1f;
+    public float hitChance = 0.6f;
     private void Start()
     {
         StartCoroutine("MoveNextTile");
+        attackField.SetActive(false);
     }
     public void MoveNextTile()
     {
@@ -53,6 +59,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator moving(string direction, int moves)
     {
+        moved = false;
         for(int i = 0; i < moves; i++)
         {
             if(direction == "right")
@@ -90,24 +97,51 @@ public class Player : MonoBehaviour
             transform.position = map.TileCoordToWorldCoord(tileX, tileY);
             yield return new WaitForSeconds(1f);
         }
+        if (moves > 2) 
+        {
+            moved = true;
+            attackField.SetActive(false);
+        }
         transform.position = map.TileCoordToWorldCoord(tileX, tileY);
+        if (map.CheckForEnemy()) attackField.SetActive(true);
+        else attackField.SetActive(false);
+        EnemyTurn();
+    }
+    public void AttackEnemy(string attackString)
+    {
+        if(attackString != "pass")
+        {
+            GameObject enemy = map.returnNearestEnemy();
+            Vector3 attackDist = transform.position - enemy.transform.position;
+            attackDist.Normalize();
+            float totalDist = Vector3.Distance(transform.position, enemy.transform.position);
+            for (float i = 0; i < totalDist; i += stepSize)
+            {
+                Vector3 tempPosition = transform.position - attackDist.normalized * i;
+                Debug.Log("Current position" + tempPosition.x + " " + tempPosition.y);
+                if (!map.isFloor((int)tempPosition.x, (int)tempPosition.y))
+                {
+                    break;
+                }
+            }
+            float chanceToHit = Random.Range(0f, 1f);
+            if (chanceToHit <= hitChance)
+            {
+                Debug.Log("Hit");
+                map.RemoveEnemy(enemy);
+                Destroy(enemy);
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+            EnemyTurn();
+        }
+    }
+    void EnemyTurn()
+    {
+        Debug.Log("Called");
         map.setPlayerNode(tileX, tileY);
         map.MoveToPlayer(tileX, tileY);
-        //if (direction == "right")
-        //{
-        //    map.MoveTo(tileX+moves,tileY);
-        //}
-        //else if (direction == "left")
-        //{
-        //    map.MoveTo(tileX - moves, tileY);
-        //}
-        //else if (direction == "up")
-        //{
-        //    map.MoveTo(tileX, tileY + moves);
-        //}
-        //else if(direction == "down")
-        //{
-        //    map.MoveTo(tileX, tileY - moves);
-        //}
     }
 }

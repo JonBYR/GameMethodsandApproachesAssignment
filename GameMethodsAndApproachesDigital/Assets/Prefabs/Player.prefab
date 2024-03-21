@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7636721743424610113}
   - component: {fileID: 4309563522250883770}
   - component: {fileID: 1202784500242689274}
+  - component: {fileID: 8881274067403321317}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -105,6 +106,10 @@ MonoBehaviour:
   tileY: 0
   map: {fileID: 0}
   canMove: 0
+  canAttackEnemy: 0
+  attackField: {fileID: 0}
+  stepSize: 0.1
+  hitChance: 0
 --- !u!61 &8780871605903786058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -285,3 +290,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8881274067403321317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6128150902808343760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bba946775e515948b77d19c656899cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

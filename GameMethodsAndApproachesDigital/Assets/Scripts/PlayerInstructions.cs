@@ -7,6 +7,7 @@ public class PlayerInstructions : MonoBehaviour
 {
     public Player p;
     string[] words = { "null", "null"};
+    string[] attackWords = { "null", "null", "null" };
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,14 @@ public class PlayerInstructions : MonoBehaviour
     void Update()
     {
         
+    }
+    public void AttackTheEnemy(string s)
+    {
+        if (Player.moved == true) return;
+        else
+        {
+            p.AttackEnemy(s);
+        }
     }
     public void DirectThePlayer(string s)
     {

@@ -18,6 +18,7 @@ public class TileMap : MonoBehaviour
     List<Node> currentPath = null;
     int mapSizeX = 10;
     int mapSizeY = 10;
+    GameObject nearestEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -226,8 +227,25 @@ public class TileMap : MonoBehaviour
             CancelInvoke("MoveUnit");
         }
     }
-    void MoveEnemy(GameObject enemy)
+    public bool CheckForEnemy()
     {
-
+        foreach(GameObject e in enemies)
+        {
+            float enemyDistance = Vector3.Distance(player.transform.position, e.transform.position);
+            if(enemyDistance <= 3f)
+            {
+                nearestEnemy = e;
+                return true;
+            }
+        }
+        return false;
+    }
+    public GameObject returnNearestEnemy()
+    {
+        return nearestEnemy;
+    }
+    public void RemoveEnemy(GameObject e)
+    {
+        enemies.Remove(e);
     }
 }
