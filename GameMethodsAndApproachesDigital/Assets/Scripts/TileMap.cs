@@ -19,6 +19,8 @@ public class TileMap : MonoBehaviour
     int mapSizeX = 10;
     int mapSizeY = 10;
     GameObject nearestEnemy;
+    public UpdateStatus status;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -142,14 +144,26 @@ public class TileMap : MonoBehaviour
     }
     public bool validMove(int x, int y)
     {
-        if (x < 0 || x > mapSizeX - 1) return false;
-        else if (y < 0 || y > mapSizeY - 1) return false;
+        if (x < 0 || x > mapSizeX - 1)
+        {
+            status.HitWall();
+            return false;
+        }
+        else if (y < 0 || y > mapSizeY - 1) 
+        {
+            status.HitWall();
+            return false;
+        }
         foreach(GameObject enemy in enemies)
         {
             if (enemy.transform.position.x == x && enemy.transform.position.y == y) return false;
         }
         TileType tile = tileTypes[tiles[x, y]];
-        if (tile.isClickable == false) return false;
+        if (tile.isClickable == false) 
+        {
+            status.HitWall();
+            return false;
+        }
         else return true;
     }
     public void MoveToPlayer(int x, int y)
@@ -227,6 +241,25 @@ public class TileMap : MonoBehaviour
             CancelInvoke("MoveUnit");
         }
     }
+    public void enemyStatus()
+    {
+        foreach(GameObject e in enemies)
+        {
+            Vector3 difference = e.transform.position - player.transform.position;
+            float xDiff = difference.x;
+            float yDiff = difference.y;
+            if(Mathf.Abs(xDiff) >= Mathf.Abs(yDiff))
+            {
+                if (xDiff < 0) status.EnemyFound("Left");
+                else status.EnemyFound("Right");
+            }
+            else if(Mathf.Abs(xDiff) < Mathf.Abs(yDiff))
+            {
+                if (yDiff < 0) status.EnemyFound("Down");
+                else status.EnemyFound("Up");
+            }
+        }
+    }
     public bool CheckForEnemy()
     {
         foreach(GameObject e in enemies)
@@ -234,6 +267,7 @@ public class TileMap : MonoBehaviour
             float enemyDistance = Vector3.Distance(player.transform.position, e.transform.position);
             if(enemyDistance <= 3f)
             {
+                status.AttackableEnemy();
                 nearestEnemy = e;
                 return true;
             }

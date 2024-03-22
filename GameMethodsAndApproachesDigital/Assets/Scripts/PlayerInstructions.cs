@@ -8,6 +8,7 @@ public class PlayerInstructions : MonoBehaviour
     public Player p;
     string[] words = { "null", "null"};
     string[] attackWords = { "null", "null", "null" };
+    public UpdateStatus status;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +25,13 @@ public class PlayerInstructions : MonoBehaviour
         if (Player.moved == true) return;
         else
         {
+            status.WipeString();
             p.AttackEnemy(s);
         }
     }
     public void DirectThePlayer(string s)
     {
+        status.WipeString();
         Array.Clear(words, 0, 2); //clears the array by getting the starting index and the number of elements to remove from that index
         words = s.Split(' ');
         Debug.Log(words[0]);

@@ -18,11 +18,14 @@ public class Player : MonoBehaviour
     public int medkits = 1;
     public Rigidbody2D playerRb;
     public GameObject eventSpace;
+    public UpdateStatus status;
+    private MedKitController med;
     private void Start()
     {
         playerRb.velocity = new Vector2(0f, 0f);
         StartCoroutine("MoveNextTile");
         attackField.SetActive(false);
+        med = GameObject.Find("HealthPickUp").GetComponent<MedKitController>();
     }
     private void Update()
     {
@@ -175,6 +178,11 @@ public class Player : MonoBehaviour
         map.setPlayerNode(tileX, tileY);
         map.MoveToPlayer(tileX, tileY);
         if (EventSpace.triggerTrap == true) Invoke("DestroyEvent", 1f);
+        status.HealthOfPlayer();
+        status.CurrentHealthKits(medkits);
+        map.enemyStatus();
+        if (med != null) med.MedKit();
+        status.DisplayAllInfo();
     }
     void DestroyEvent()
     {

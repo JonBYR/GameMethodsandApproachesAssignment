@@ -7,6 +7,7 @@ public class EventSpace : MonoBehaviour
     public static bool triggerTrap = false;
     public static bool trapTriggered = false;
     public LayerMask layer;
+    public UpdateStatus status;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +35,12 @@ public class EventSpace : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(transform.localPosition, new Vector2(6, 6));
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            status.TrapText();
+        }
     }
 }
