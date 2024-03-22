@@ -6,6 +6,7 @@ public class EventSpace : MonoBehaviour
 {
     public static bool triggerTrap = false;
     public static bool trapTriggered = false;
+    public LayerMask layer;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,26 +17,22 @@ public class EventSpace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (triggerTrap == false) return;
-        else
+        if(triggerTrap == true)
         {
-            if (collision.tag == "Player") PlayerHealth.TakeDamage();
-            if (collision.tag == "Enemy") Destroy(collision.gameObject);
-            Debug.Log("Called Trap");
+            Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.localPosition, new Vector2(6, 6), 0f, layer);
+            if(allAttackables != null)
+            {
+                foreach(Collider2D e in allAttackables)
+                {
+                    if (e.gameObject.tag == "Enemy") Destroy(e.gameObject);
+                    if (e.gameObject.tag == "Player") PlayerHealth.TakeDamage();
+                }       
+            }
+            Destroy(this.gameObject);
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnDrawGizmosSelected()
     {
-        if (triggerTrap == false) return;
-        else
-        {
-            if (collision.tag == "Player") PlayerHealth.TakeDamage();
-            if (collision.tag == "Enemy") Destroy(collision.gameObject);
-            Debug.Log("Called Trap");
-        }
+        Gizmos.DrawWireCube(transform.localPosition, new Vector2(6, 6));
     }
 }

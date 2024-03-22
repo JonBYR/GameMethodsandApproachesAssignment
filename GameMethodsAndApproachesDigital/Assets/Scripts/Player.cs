@@ -16,11 +16,17 @@ public class Player : MonoBehaviour
     public float stepSize = 0.1f;
     public float hitChance = 0.6f;
     public int medkits = 1;
+    public Rigidbody2D playerRb;
     public GameObject eventSpace;
     private void Start()
     {
+        playerRb.velocity = new Vector2(0f, 0f);
         StartCoroutine("MoveNextTile");
         attackField.SetActive(false);
+    }
+    private void Update()
+    {
+        playerRb.velocity = new Vector2(0f, 0f);
     }
     public void MoveNextTile()
     {

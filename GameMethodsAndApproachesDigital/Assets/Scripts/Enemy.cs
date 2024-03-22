@@ -14,17 +14,20 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     public float threshold;
     public float stepSize = 0.5f;
+    public Rigidbody2D enemyRb;
     // Start is called before the first frame update
     void Start()
     {
         nodeCount = 0;
         originalFind = find;
+        enemyRb.velocity = new Vector2(0f, 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         player = GameObject.Find("Player");
+        enemyRb.velocity = new Vector2(0f, 0f);
     }
     public void MoveNextTile()
     {
@@ -55,6 +58,8 @@ public class Enemy : MonoBehaviour
             currentPath = null;
             nodeCount = 0;
             find = originalFind;
+            foundPlayer = false;
+            canAttack = false;
             return;
         }
         else
