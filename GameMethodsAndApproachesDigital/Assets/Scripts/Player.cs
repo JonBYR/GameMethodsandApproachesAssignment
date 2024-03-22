@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public static bool moved = false;
     public float stepSize = 0.1f;
     public float hitChance = 0.6f;
+    public int medkits = 1;
+    public GameObject eventSpace;
     private void Start()
     {
         StartCoroutine("MoveNextTile");
@@ -138,10 +140,38 @@ public class Player : MonoBehaviour
             EnemyTurn();
         }
     }
+    public void Heal()
+    {
+        Debug.Log("Call heal");
+        if(medkits > 0 && PlayerHealth.getHealth() < 3)
+        {
+            Debug.Log("Healing");
+            PlayerHealth.setHealth(3);
+            medkits = 0;
+            EnemyTurn();
+        }
+        else
+        {
+            return;
+        }
+    }
+    public void TriggerTrip()
+    {
+        if (EventSpace.triggerTrap == false)
+        {
+            EventSpace.triggerTrap = true;
+            EnemyTurn();
+        }
+        else return;
+    }
     void EnemyTurn()
     {
-        Debug.Log("Called");
         map.setPlayerNode(tileX, tileY);
         map.MoveToPlayer(tileX, tileY);
+        if (EventSpace.triggerTrap == true) Invoke("DestroyEvent", 1f);
+    }
+    void DestroyEvent()
+    {
+        Destroy(eventSpace);
     }
 }

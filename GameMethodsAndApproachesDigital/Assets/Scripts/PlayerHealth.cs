@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
     public static void TakeDamage()
     {
         health--;
-        Debug.Log(health);
+        Debug.Log("Health: " + health);
         if (health <= 0)
         {
             //SceneManager.LoadScene("GameOver");
