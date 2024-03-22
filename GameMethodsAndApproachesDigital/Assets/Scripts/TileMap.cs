@@ -20,10 +20,11 @@ public class TileMap : MonoBehaviour
     int mapSizeY = 10;
     GameObject nearestEnemy;
     public UpdateStatus status;
-    
+    public ReplaySystem replay;
     // Start is called before the first frame update
     void Start()
     {
+        replay.StartRecording();
         player.GetComponent<Player>().tileX = (int)player.transform.position.x;
         player.GetComponent<Player>().tileY = (int)player.transform.position.y;
         player.GetComponent<Player>().map = this;
@@ -281,5 +282,14 @@ public class TileMap : MonoBehaviour
     public void RemoveEnemy(GameObject e)
     {
         enemies.Remove(e);
+        if(enemies.Count <= 0) 
+        {
+            Invoke("BeginPlayback", 1f);
+        }
+    }
+    public void BeginPlayback()
+    {
+        replay.StopRecording();
+        replay.StartPlayback();
     }
 }

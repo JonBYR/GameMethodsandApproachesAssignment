@@ -93,11 +93,19 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Hit");
             PlayerHealth.TakeDamage();
+            if(PlayerHealth.getHealth() <= 0)
+            {
+                Invoke("mapFunction", 1f);
+            }
         }
         else
         {
             Debug.Log("Miss");
             return;
         }
+    }
+    void mapFunction()
+    {
+        map.BeginPlayback();
     }
 }

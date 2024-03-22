@@ -8,6 +8,7 @@ public class EventSpace : MonoBehaviour
     public static bool trapTriggered = false;
     public LayerMask layer;
     public UpdateStatus status;
+    public TileMap map;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,11 @@ public class EventSpace : MonoBehaviour
             {
                 foreach(Collider2D e in allAttackables)
                 {
-                    if (e.gameObject.tag == "Enemy") Destroy(e.gameObject);
+                    if (e.gameObject.tag == "Enemy")
+                    {
+                        map.RemoveEnemy(e.gameObject);
+                        Destroy(e.gameObject);
+                    }
                     if (e.gameObject.tag == "Player") PlayerHealth.TakeDamage();
                 }       
             }
