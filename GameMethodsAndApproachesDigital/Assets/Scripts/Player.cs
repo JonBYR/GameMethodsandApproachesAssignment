@@ -20,12 +20,14 @@ public class Player : MonoBehaviour
     public GameObject eventSpace;
     public UpdateStatus status;
     private MedKitController med;
+    private EventSpace space;
     private void Start()
     {
         playerRb.velocity = new Vector2(0f, 0f);
         StartCoroutine("MoveNextTile");
         attackField.SetActive(false);
         med = GameObject.Find("HealthPickUp").GetComponent<MedKitController>();
+        space = GameObject.Find("EventSpace").GetComponent<EventSpace>();
     }
     private void Update()
     {
@@ -132,7 +134,8 @@ public class Player : MonoBehaviour
                 Debug.Log("Current position" + tempPosition.x + " " + tempPosition.y);
                 if (!map.isFloor((int)tempPosition.x, (int)tempPosition.y))
                 {
-                    break;
+                    status.CantAttack();
+                    return;
                 }
             }
             float chanceToHit = Random.Range(0f, 1f);
@@ -182,10 +185,16 @@ public class Player : MonoBehaviour
         status.CurrentHealthKits(medkits);
         map.enemyStatus();
         if (med != null) med.MedKit();
+        if (space != null) space.CheckForEnemies();
         status.DisplayAllInfo();
+        Invoke("StopRec", 1f);
     }
     void DestroyEvent()
     {
         Destroy(eventSpace);
+    }
+    void StopRec()
+    {
+        ReplaySystem.recordTurn = false;
     }
 }

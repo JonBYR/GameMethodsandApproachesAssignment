@@ -11,6 +11,8 @@ public class ReplaySystem : MonoBehaviour
     private bool isRecording = false;
     private bool isPlaying = false;
     public Renderer squareRender;
+    public static bool recordTurn = false;
+    //https://www.youtube.com/watch?v=iNVnWLKUKw4
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +75,6 @@ public class ReplaySystem : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        RecordFrame();
+        if(recordTurn == true) RecordFrame();
     }
 }

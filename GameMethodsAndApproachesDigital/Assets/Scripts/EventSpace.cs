@@ -9,6 +9,7 @@ public class EventSpace : MonoBehaviour
     public LayerMask layer;
     public UpdateStatus status;
     public TileMap map;
+    public Vector2 colliderSize;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class EventSpace : MonoBehaviour
     {
         if(triggerTrap == true)
         {
-            Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.localPosition, new Vector2(6, 6), 0f, layer);
+            Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.localPosition, colliderSize, 0f, layer);
             if(allAttackables != null)
             {
                 foreach(Collider2D e in allAttackables)
@@ -36,16 +37,25 @@ public class EventSpace : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+        if (Input.GetKeyDown(KeyCode.L)) CheckForEnemies();
+    }
+    public void CheckForEnemies()
+    {
+        Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.position, colliderSize, 0f, layer);
+        if (allAttackables != null)
+        {
+            foreach (Collider2D e in allAttackables)
+            {
+                if (e.gameObject.tag == "Enemy")
+                {
+                    Debug.Log("Called this if check!");
+                    status.TrapText();
+                }
+            }
+        }
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireCube(transform.localPosition, new Vector2(6, 6));
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Enemy")
-        {
-            status.TrapText();
-        }
+        Gizmos.DrawWireCube(transform.localPosition, colliderSize);
     }
 }

@@ -45,6 +45,11 @@ public class UpdateStatus : MonoBehaviour
         wallText.text = "Player will hit a wall\n";
         Invoke("WipeWall", 2f);
     }
+    public void CantAttack()
+    {
+        wallText.text = "Player will attack a wall\n";
+        Invoke("WipeWall", 2f);
+    }
     public void InCover(bool state)
     {
         if (state == true) information += "Currently in cover\n";

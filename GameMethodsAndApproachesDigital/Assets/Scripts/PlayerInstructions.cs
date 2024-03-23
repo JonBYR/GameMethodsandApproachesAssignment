@@ -25,6 +25,7 @@ public class PlayerInstructions : MonoBehaviour
         if (Player.moved == true) return;
         else
         {
+            ReplaySystem.recordTurn = true;
             status.WipeString();
             p.AttackEnemy(s);
         }
@@ -36,6 +37,7 @@ public class PlayerInstructions : MonoBehaviour
         words = s.Split(' ');
         Debug.Log(words[0]);
         Debug.Log(words[1]);
+        ReplaySystem.recordTurn = true;
         if (words[1] == "medkit") p.Heal();
         else if (words[1] == "trap") p.TriggerTrip();
         else
