@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public int find;
     private int originalFind;
     private GameObject player;
-    public float threshold;
+    public static float threshold;
     public float stepSize = 0.5f;
     public Rigidbody2D enemyRb;
     // Start is called before the first frame update

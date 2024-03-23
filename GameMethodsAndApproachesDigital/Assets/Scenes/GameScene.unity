@@ -898,7 +898,7 @@ MonoBehaviour:
     isClickable: 0
   playerMovement: 3
   status: {fileID: 509109169}
-  replay: {fileID: 1748652698}
+  replay: {fileID: 1032644496}
 --- !u!1 &1032013768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 1032644495}
   - component: {fileID: 1032644494}
   - component: {fileID: 1032644493}
+  - component: {fileID: 1032644496}
   m_Layer: 0
   m_Name: Camera
   m_TagString: RecordCamera
@@ -1125,6 +1126,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032644496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032644492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410ed12d5f5a23b4cbeb6df4607132f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBetweenFrames: 0.01
+  squareRender: {fileID: 1240525215}
 --- !u!1 &1240525213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1303,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -70
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -2011,7 +2026,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1748652697}
   - component: {fileID: 1748652696}
-  - component: {fileID: 1748652698}
   m_Layer: 0
   m_Name: MovementObject
   m_TagString: Untagged
@@ -2048,20 +2062,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1748652698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748652695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 410ed12d5f5a23b4cbeb6df4607132f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delayBetweenFrames: 0.01
-  squareRender: {fileID: 1240525215}
 --- !u!1 &1950340474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1508045022619743038, guid: a9be763a7e6099a408e7f4b5b91361cf, type: 3}
