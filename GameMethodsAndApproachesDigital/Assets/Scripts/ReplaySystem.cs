@@ -73,8 +73,8 @@ public class ReplaySystem : MonoBehaviour
         squareRender.material.mainTexture = frame;
     }
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate() //fixed Update is set at a specific value
     {
-        if(recordTurn == true) RecordFrame();
+        if(recordTurn == true) RecordFrame(); //if the player/enemy is moving record the frame so that the list is not filled with static textures
     }
 }

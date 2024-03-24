@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerRb.velocity = new Vector2(0f, 0f);
-        StartCoroutine("MoveNextTile");
         attackField.SetActive(false);
         med = GameObject.Find("HealthPickUp").GetComponent<MedKitController>();
         space = GameObject.Find("EventSpace").GetComponent<EventSpace>();
@@ -32,29 +31,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         playerRb.velocity = new Vector2(0f, 0f);
-    }
-    public void MoveNextTile()
-    {
-        if(currentPath == null) { canMove = false; return; }
-        if (enemyFound)
-        {
-            tileX = currentPath[0].x;
-            tileY = currentPath[0].y;
-            currentPath = null;
-            canMove = false;
-        }
-        currentPath.RemoveAt(0);
-        transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].y);
-        
-        if (currentPath.Count == 1) //destination
-        {
-            tileX = currentPath[0].x;
-            tileY = currentPath[0].y;
-            currentPath = null;
-            canMove = false;
-            map.setPlayerNode(tileX, tileY);
-            map.MoveToPlayer(tileX, tileY);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

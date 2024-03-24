@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class TileMap : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class TileMap : MonoBehaviour
     float CostOfTile(int x, int y)
     {
         TileType t = tileTypes[tiles[x, y]];
+        if (isFloor(x, y) == false) return Mathf.Infinity;
         return t.movementCost; //walls would have a huge cost to ensure it is undesirable to enter
     }
     public void setCost(int x, int y, int value)
@@ -167,6 +169,19 @@ public class TileMap : MonoBehaviour
         }
         else return true;
     }
+    public bool validEnemyMove(GameObject e, int x, int y)
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy == e) continue;
+            else if (enemy.transform.position.x == x && enemy.transform.position.y == y) return false;
+        }
+        return true;
+    }
+    float calculateHeuristic(int neighBourX, int neighbourY, int playerX, int playerY)
+    {
+        return Mathf.Abs(neighBourX - playerX) + Mathf.Abs(neighbourY - playerY);
+    }
     public void MoveToPlayer(int x, int y)
     {
         foreach(GameObject enemy in enemies)
@@ -201,9 +216,10 @@ public class TileMap : MonoBehaviour
                 }
                 if (u == target) break; //if current node is target node we no longer are calculating the path
                 unvisted.Remove(u);
+                float manhattanDist = calculateHeuristic(u.x, u.y, x, y);
                 foreach (Node v in u.neighbours) //looks through the neighbours of the vertex
                 {
-                    float temp = dist[u] + CostOfTile(v.x, v.y);
+                    float temp = dist[u] + CostOfTile(v.x, v.y) + manhattanDist;
                     if (temp < dist[v])
                     {
                         dist[v] = temp;
@@ -216,7 +232,7 @@ public class TileMap : MonoBehaviour
             {
                 return;
             }
-            currentPath = new List<Node>();
+            List<Node> currentPath = new List<Node>();
             Node curr = target;
             while (curr != null)
             {
@@ -232,14 +248,6 @@ public class TileMap : MonoBehaviour
             {
                 enemy.GetComponent<Enemy>().MoveNextTile();
             }
-        }
-    }
-    void MoveUnit()
-    {
-        player.GetComponent<Player>().MoveNextTile();
-        if (player.GetComponent<Player>().currentPath == null)
-        {
-            CancelInvoke("MoveUnit");
         }
     }
     public void enemyStatus()

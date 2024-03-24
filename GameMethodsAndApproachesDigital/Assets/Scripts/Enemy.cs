@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         nodeCount++;
         currentPath.RemoveAt(0);
         if(find >= currentPath.Count) { find = currentPath.Count - 1; }
-        bool foundPlayer = map.PlayerFound(currentPath[0 + find].x, currentPath[0 + find].y);
+        bool foundPlayer = map.PlayerFound(currentPath[0 + find].x, currentPath[0 + find].y); //code to check where the player is
         Vector3 attackDist = transform.position - player.transform.position;
         attackDist.Normalize();
         float totalDist = Vector3.Distance(transform.position, player.transform.position);
@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
             }
             if (nodeCount >= 3)
             {
+                if (!map.validEnemyMove(this.gameObject, currentPath[0].x, currentPath[0].y)) return;
                 tileX = currentPath[0].x;
                 tileY = currentPath[0].y;
                 transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].y);
