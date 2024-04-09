@@ -106,12 +106,17 @@ MonoBehaviour:
   canMove: 0
   canAttackEnemy: 0
   attackField: {fileID: 0}
+  moveField: {fileID: 0}
   stepSize: 0.1
   hitChance: 0
   medkits: 1
   playerRb: {fileID: 4276620913702796859}
   eventSpace: {fileID: 0}
   status: {fileID: 0}
+  viewRadius: 1
+  cover:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8881274067403321317
 MonoBehaviour:
   m_ObjectHideFlags: 0

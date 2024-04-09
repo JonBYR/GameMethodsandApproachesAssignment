@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     bool enemyFound = false;
     public bool canAttackEnemy = false;
     public GameObject attackField;
+    public GameObject moveField;
     public static bool moved = false;
     public float stepSize = 0.1f;
     public float hitChance = 0.6f;
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     public UpdateStatus status;
     private MedKitController med;
     private EventSpace space;
+    public float viewRadius = 1f;
+    public LayerMask cover;
     private void Start()
     {
         playerRb.velocity = new Vector2(0f, 0f);
@@ -92,15 +95,21 @@ public class Player : MonoBehaviour
             attackField.SetActive(false);
         }
         transform.position = map.TileCoordToWorldCoord(tileX, tileY);
-        if (map.CheckForEnemy()) attackField.SetActive(true);
+        if (map.CheckForEnemy())
+        {
+            attackField.SetActive(true);
+            moveField.SetActive(false);
+            yield break;
+        }
         else attackField.SetActive(false);
         EnemyTurn();
     }
     public void AttackEnemy(string attackString)
     {
-        if(attackString != "pass")
+        if (attackString != "pass")
         {
             GameObject enemy = map.returnNearestEnemy();
+            CheckIfCover(enemy);
             Vector3 attackDist = transform.position - enemy.transform.position;
             attackDist.Normalize();
             float totalDist = Vector3.Distance(transform.position, enemy.transform.position);
@@ -127,6 +136,19 @@ public class Player : MonoBehaviour
             }
             EnemyTurn();
         }
+        else if (attackString == "pass")
+        {
+            Debug.Log("PASSED");
+            EnemyTurn();
+        }
+       
+    }
+    void CheckIfCover(GameObject e)
+    {
+        Vector3 directionToEnemy = (transform.position - e.transform.position).normalized;
+        float distanceToEnemy = Vector3.Distance(transform.position, e.transform.position);
+        if (Physics2D.Raycast(transform.position, directionToEnemy, distanceToEnemy, cover)) { Debug.Log("Found cover"); hitChance = 0f; }
+        else hitChance = 0.6f;
     }
     public void Heal()
     {
@@ -162,6 +184,7 @@ public class Player : MonoBehaviour
         map.enemyStatus();
         if (med != null) med.MedKit();
         if (space != null) space.CheckForEnemies();
+        moveField.SetActive(true);
         status.DisplayAllInfo();
         Invoke("StopRec", 1f);
     }

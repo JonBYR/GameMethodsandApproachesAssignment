@@ -12,9 +12,10 @@ public class Enemy : MonoBehaviour
     public int find;
     private int originalFind;
     private GameObject player;
-    public static float threshold;
+    public float threshold;
     public float stepSize = 0.5f;
     public Rigidbody2D enemyRb;
+    public LayerMask cover;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +90,7 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         Debug.Log("Called");
+        CheckIfCover();
         float chanceToHit = Random.Range(0f, 1f);
         if(chanceToHit <= threshold)
         {
@@ -104,6 +106,13 @@ public class Enemy : MonoBehaviour
             Debug.Log("Miss");
             return;
         }
+    }
+    void CheckIfCover()
+    {
+        Vector3 directionToEnemy = (transform.position - player.transform.position).normalized;
+        float distanceToEnemy = Vector3.Distance(transform.position, player.transform.position);
+        if (Physics2D.Raycast(transform.position, directionToEnemy, distanceToEnemy, cover)) { Debug.Log("Found cover"); threshold = 1000f; }
+        else threshold = 0.4f;
     }
     void mapFunction()
     {
