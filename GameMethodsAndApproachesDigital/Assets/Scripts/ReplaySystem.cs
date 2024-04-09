@@ -9,7 +9,7 @@ public class ReplaySystem : MonoBehaviour
     public float delayBetweenFrames = 0.05f;
     private List<Texture2D> frames = new List<Texture2D>();
     private bool isRecording = false;
-    private bool isPlaying = false;
+    public static bool isPlaying = false;
     public Renderer squareRender;
     public static bool recordTurn = false;
     //https://www.youtube.com/watch?v=iNVnWLKUKw4
