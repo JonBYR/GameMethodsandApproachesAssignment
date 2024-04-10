@@ -54,10 +54,11 @@ public class PlayerInstructions : MonoBehaviour
             }
         }
     }
-    public void DirectThePlayer(string s)
+    public void DirectThePlayer(TMP_InputField t)
     {
         if (EventSystem.current.currentSelectedGameObject == move)
         {
+            string s = t.text;
             status.WipeString();
             Array.Clear(words, 0, 2); //clears the array by getting the starting index and the number of elements to remove from that index
             words = s.Split(' ');

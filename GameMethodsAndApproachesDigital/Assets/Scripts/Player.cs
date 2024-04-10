@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     private EventSpace space;
     public float viewRadius = 1f;
     public LayerMask cover;
+    public AudioSource playerSource;
+    public AudioClip runningClip;
+    public AudioClip shootingClip;
+    public AudioClip trapAudio;
     private void Start()
     {
         playerRb.velocity = new Vector2(0f, 0f);
@@ -52,6 +56,8 @@ public class Player : MonoBehaviour
     public IEnumerator moving(string direction, int moves)
     {
         moved = false;
+        playerSource.clip = runningClip;
+        playerSource.Play();
         for(int i = 0; i < moves; i++)
         {
             if(direction == "right")
@@ -124,6 +130,8 @@ public class Player : MonoBehaviour
                     return;
                 }
             }
+            playerSource.clip = shootingClip;
+            playerSource.Play();
             float chanceToHit = Random.Range(0f, 1f);
             if (chanceToHit <= hitChance)
             {
@@ -171,6 +179,8 @@ public class Player : MonoBehaviour
         if (EventSpace.triggerTrap == false)
         {
             EventSpace.triggerTrap = true;
+            playerSource.clip = trapAudio;
+            playerSource.Play();
             EnemyTurn();
         }
         else return;

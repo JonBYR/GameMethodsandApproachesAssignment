@@ -526,10 +526,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1748652696}
         m_TargetAssemblyTypeName: PlayerInstructions, Assembly-CSharp
         m_MethodName: DirectThePlayer
-        m_Mode: 0
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 263364220}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

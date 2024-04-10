@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour
     public float stepSize = 0.5f;
     public Rigidbody2D enemyRb;
     public LayerMask cover;
+    public AudioSource enemySource;
+    public AudioClip runningClip;
+    public AudioClip shootingClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +74,7 @@ public class Enemy : MonoBehaviour
                 //tileY = currentPath[1].y;
                 //map.setCost(tileX, tileY, 1000000000);
                 //transform.position = map.TileCoordToWorldCoord(currentPath[1].x, currentPath[1].y);
+                
                 currentPath = null;
                 nodeCount = 0;
                 find = originalFind;
@@ -84,6 +88,8 @@ public class Enemy : MonoBehaviour
                 currentPath = null;
                 nodeCount = 0;
                 find = originalFind;
+                enemySource.clip = runningClip;
+                enemySource.Play();
             }
         }
     }
@@ -91,6 +97,8 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Called");
         CheckIfCover();
+        enemySource.clip = shootingClip;
+        enemySource.Play();
         float chanceToHit = Random.Range(0f, 1f);
         if(chanceToHit <= threshold)
         {

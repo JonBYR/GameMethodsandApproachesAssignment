@@ -10,6 +10,7 @@ public class EventSpace : MonoBehaviour
     public UpdateStatus status;
     public TileMap map;
     public Vector2 colliderSize;
+    public AudioSource trapAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class EventSpace : MonoBehaviour
     {
         if(triggerTrap == true)
         {
+            trapAudio.Play();
             Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.localPosition, colliderSize, 0f, layer);
             if(allAttackables != null)
             {
