@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class PlayerInstructions : MonoBehaviour
     public GameObject mis;
     public GameObject attack;
     public GameObject move;
+    public TileMap map;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,10 @@ public class PlayerInstructions : MonoBehaviour
     {
         
     }
-    public void Miscell(string s)
+    public void Miscell(TMP_InputField t)
     {
-        if(EventSystem.current.currentSelectedGameObject == mis)
+        string s = t.text;
+        if (EventSystem.current.currentSelectedGameObject == mis)
         {
             Debug.Log(s);
             status.WipeString();
@@ -37,8 +40,9 @@ public class PlayerInstructions : MonoBehaviour
             else return;
         }
     }
-    public void AttackTheEnemy(string s)
+    public void AttackTheEnemy(TMP_InputField t)
     {
+        string s = t.text;
         if (EventSystem.current.currentSelectedGameObject == attack)
         {
             if (Player.moved == true) return;

@@ -1497,10 +1497,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1748652696}
         m_TargetAssemblyTypeName: PlayerInstructions, Assembly-CSharp
         m_MethodName: Miscell
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1054941589}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3709,10 +3709,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1748652696}
         m_TargetAssemblyTypeName: PlayerInstructions, Assembly-CSharp
         m_MethodName: AttackTheEnemy
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1675108098}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3826,6 +3826,7 @@ MonoBehaviour:
   mis: {fileID: 1054941587}
   attack: {fileID: 1675108096}
   move: {fileID: 263364218}
+  map: {fileID: 643632796}
 --- !u!4 &1748652697
 Transform:
   m_ObjectHideFlags: 0

@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
                 if (!map.isFloor((int)tempPosition.x, (int)tempPosition.y))
                 {
                     status.CantAttack();
+                    Invoke("StopRec", 1f);
                     return;
                 }
             }
