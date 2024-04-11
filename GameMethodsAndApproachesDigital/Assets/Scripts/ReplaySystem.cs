@@ -12,6 +12,7 @@ public class ReplaySystem : MonoBehaviour
     public static bool isPlaying = false;
     public Renderer squareRender;
     public static bool recordTurn = false;
+    public AudioSource replayMusic;
     //https://www.youtube.com/watch?v=iNVnWLKUKw4
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,7 @@ public class ReplaySystem : MonoBehaviour
     public void StartPlayback()
     {
         Debug.Log("Start Looking");
+        replayMusic.Play();
         if (!isPlaying && frames.Count > 0)
         {
             mainCamera.transform.position = new Vector3(163f, 83f, 0f);

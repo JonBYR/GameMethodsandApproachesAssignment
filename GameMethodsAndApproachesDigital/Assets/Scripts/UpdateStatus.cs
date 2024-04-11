@@ -36,6 +36,11 @@ public class UpdateStatus : MonoBehaviour
     {
         information += "There is a healthkit " + direction + " you\n";
     }
+    public void InvalidInput()
+    {
+        wallText.text = "To move please input a direction and the number of spaces\n";
+        Invoke("WipeWall", 2f);
+    }
     public void TrapText()
     {
         information += "There is an enemy to defeat with a trap!\n";

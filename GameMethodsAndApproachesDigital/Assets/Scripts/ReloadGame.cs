@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class ReloadGame : MonoBehaviour
 {
     public GameObject canvas;
+    public AudioSource replayMusic;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,8 @@ public class ReloadGame : MonoBehaviour
             SceneManager.LoadScene("GameScene");
             canvas.SetActive(true);
             ReplaySystem.isPlaying = false;
+            replayMusic.time = 0;
+            replayMusic.Stop();
         }
         if(ReplaySystem.isPlaying == true)
         {
