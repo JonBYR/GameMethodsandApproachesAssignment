@@ -37,7 +37,11 @@ public class PlayerInstructions : MonoBehaviour
             ReplaySystem.recordTurn = true;
             if (s == "medkit") p.Heal();
             else if (s == "trap") { Debug.Log("Calling"); p.TriggerTrip(); }
-            else return;
+            else
+            {
+                status.InvalidMis();
+                return;
+            }
         }
     }
     public void AttackTheEnemy(TMP_InputField t)
@@ -65,7 +69,11 @@ public class PlayerInstructions : MonoBehaviour
             Debug.Log(words[0]);
             Debug.Log(words[1]);
             ReplaySystem.recordTurn = true;
-            if (int.Parse(words[1]) >= 4) return;
+            if (int.Parse(words[1]) >= 4)
+            {
+                status.CantMove();
+                return; 
+            }
             StartCoroutine(p.moving(words[0], int.Parse(words[1])));
         }
     }

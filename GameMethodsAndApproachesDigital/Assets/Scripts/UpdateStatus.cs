@@ -50,6 +50,26 @@ public class UpdateStatus : MonoBehaviour
         wallText.text = "Player will attack a wall\n";
         Invoke("WipeWall", 2f);
     }
+    public void CantMove()
+    {
+        wallText.text = "Player can only move 3 spaces maximum\n";
+        Invoke("WipeWall", 2f);
+    }
+    public void InvalidAttack()
+    {
+        wallText.text = "Player can only attack or pass\n";
+        Invoke("WipeWall", 2f);
+    }
+    public void InvalidMis()
+    {
+        wallText.text = "Player can use a medkit or a trap\n";
+        Invoke("WipeWall", 2f);
+    }
+    public void OverHealth()
+    {
+        wallText.text = "Already at max health\n";
+        Invoke("WipeWall", 2f);
+    }
     public void InCover(bool state)
     {
         if (state == true) information += "Currently in cover\n";

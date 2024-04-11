@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     {
         moved = false;
         playerSource.clip = runningClip;
+        playerSource.volume = 1f;
         playerSource.Play();
         for(int i = 0; i < moves; i++)
         {
@@ -103,16 +104,24 @@ public class Player : MonoBehaviour
         transform.position = map.TileCoordToWorldCoord(tileX, tileY);
         if (map.CheckForEnemy())
         {
-            attackField.SetActive(true);
-            moveField.SetActive(false);
-            yield break;
+            if(moved == true)
+            {
+                attackField.SetActive(false);
+                moveField.SetActive(true);
+            }
+            else
+            {
+                attackField.SetActive(true);
+                moveField.SetActive(false);
+                yield break;
+            }
         }
         else attackField.SetActive(false);
         EnemyTurn();
     }
     public void AttackEnemy(string attackString)
     {
-        if (attackString != "pass")
+        if (attackString == "attack")
         {
             GameObject enemy = map.returnNearestEnemy();
             CheckIfCover(enemy);
@@ -131,6 +140,7 @@ public class Player : MonoBehaviour
                 }
             }
             playerSource.clip = shootingClip;
+            playerSource.volume = 0.2f;
             playerSource.Play();
             float chanceToHit = Random.Range(0f, 1f);
             if (chanceToHit <= hitChance)
@@ -149,6 +159,11 @@ public class Player : MonoBehaviour
         {
             Debug.Log("PASSED");
             EnemyTurn();
+        }
+        else
+        {
+            status.InvalidAttack();
+            return;
         }
        
     }
@@ -171,6 +186,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            status.OverHealth();
             return;
         }
     }

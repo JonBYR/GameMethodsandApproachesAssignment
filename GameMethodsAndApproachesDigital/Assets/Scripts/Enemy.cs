@@ -89,6 +89,7 @@ public class Enemy : MonoBehaviour
                 nodeCount = 0;
                 find = originalFind;
                 enemySource.clip = runningClip;
+                enemySource.volume = 1f;
                 enemySource.Play();
             }
         }
@@ -98,6 +99,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Called");
         CheckIfCover();
         enemySource.clip = shootingClip;
+        enemySource.volume = 0.2f;
         enemySource.Play();
         float chanceToHit = Random.Range(0f, 1f);
         if(chanceToHit <= threshold)
