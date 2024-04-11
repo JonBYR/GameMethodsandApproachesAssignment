@@ -82,7 +82,7 @@ public class UpdateStatus : MonoBehaviour
     }
     public void DisplayAllInfo()
     {
-        stateText.text = information;
+        stateText.text = "Game status: \n" + information;
     }
     void WipeWall()
     {
