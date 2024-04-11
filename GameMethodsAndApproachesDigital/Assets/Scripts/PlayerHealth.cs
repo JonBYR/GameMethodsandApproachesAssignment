@@ -25,7 +25,6 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Health: " + health);
         if (health <= 0)
         {
-            //SceneManager.LoadScene("GameOver");
             Debug.Log("Dead");
         }
     }

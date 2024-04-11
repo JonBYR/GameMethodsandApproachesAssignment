@@ -1,3 +1,5 @@
 For footsteps: https://pixabay.com/sound-effects/search/footsteps/ (Chase running - KM007_)
 For gun: https://pixabay.com/sound-effects/search/gun/ (9mm - Pixabay)
 For explosion: https://pixabay.com/sound-effects/search/explosion/ (Cinematic Boom - LordSonny)
+For font: https://assetstore.unity.com/packages/2d/fonts/fatality-fps-gaming-font-216954
+For music: https://pixabay.com/music/search/genre/action/ (Risk - StudioKolomna)

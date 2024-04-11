@@ -18,6 +18,7 @@ public class ReloadGame : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("GameScene");
+            EventSpace.trapTriggered = false;
             canvas.SetActive(true);
             ReplaySystem.isPlaying = false;
             replayMusic.time = 0;

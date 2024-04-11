@@ -47,7 +47,7 @@ public class UpdateStatus : MonoBehaviour
     }
     public void HitWall()
     {
-        wallText.text = "Player will hit a wall\n";
+        wallText.text = "Player has hit a wall\n";
         Invoke("WipeWall", 2f);
     }
     public void CantAttack()
@@ -63,6 +63,16 @@ public class UpdateStatus : MonoBehaviour
     public void InvalidAttack()
     {
         wallText.text = "Player can only attack or pass\n";
+        Invoke("WipeWall", 2f);
+    }
+    public void TrapUsed()
+    {
+        wallText.text = "Trap has already been used\n";
+        Invoke("WipeWall", 2f);
+    }
+    public void HitEnemy()
+    {
+        wallText.text = "Player has hit an enemy\n";
         Invoke("WipeWall", 2f);
     }
     public void InvalidMis()

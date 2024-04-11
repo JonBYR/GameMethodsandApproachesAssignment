@@ -77,6 +77,9 @@ public class TileMap : MonoBehaviour
         tiles[1, 4] = 1;
         tiles[1, 5] = 1;
         tiles[1, 6] = 1;
+        tiles[5, 0] = 1;
+        tiles[6, 0] = 1;
+        tiles[5, 1] = 1;
     }
     void GenerateGraph()
     {
@@ -159,7 +162,11 @@ public class TileMap : MonoBehaviour
         }
         foreach(GameObject enemy in enemies)
         {
-            if (enemy.transform.position.x == x && enemy.transform.position.y == y) return false;
+            if (enemy.transform.position.x == x && enemy.transform.position.y == y)
+            {
+                status.HitEnemy();
+                return false;
+            }
         }
         TileType tile = tileTypes[tiles[x, y]];
         if (tile.isClickable == false) 
@@ -290,6 +297,7 @@ public class TileMap : MonoBehaviour
     public void RemoveEnemy(GameObject e)
     {
         enemies.Remove(e);
+        nearestEnemy = null;
         if(enemies.Count <= 0) 
         {
             Invoke("BeginPlayback", 1f);

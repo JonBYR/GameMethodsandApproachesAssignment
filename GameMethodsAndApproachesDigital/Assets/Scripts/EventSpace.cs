@@ -24,6 +24,7 @@ public class EventSpace : MonoBehaviour
         if(triggerTrap == true)
         {
             trapAudio.Play();
+            trapTriggered = true;
             Collider2D[] allAttackables = Physics2D.OverlapBoxAll(transform.localPosition, colliderSize, 0f, layer);
             if(allAttackables != null)
             {

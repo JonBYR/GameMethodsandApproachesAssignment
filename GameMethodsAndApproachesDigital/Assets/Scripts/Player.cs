@@ -28,8 +28,10 @@ public class Player : MonoBehaviour
     public AudioClip runningClip;
     public AudioClip shootingClip;
     public AudioClip trapAudio;
+    bool wallFound;
     private void Start()
     {
+        wallFound = false;
         playerRb.velocity = new Vector2(0f, 0f);
         attackField.SetActive(false);
         med = GameObject.Find("HealthPickUp").GetComponent<MedKitController>();
@@ -56,10 +58,11 @@ public class Player : MonoBehaviour
     public IEnumerator moving(string direction, int moves)
     {
         moved = false;
+        wallFound = false;
         playerSource.clip = runningClip;
         playerSource.volume = 1f;
         playerSource.Play();
-        for(int i = 0; i < moves; i++)
+        for (int i = 0; i < moves; i++)
         {
             if(direction == "right")
             {
@@ -67,7 +70,11 @@ public class Player : MonoBehaviour
                 {
                     tileX = tileX + 1;
                 }
-                else break;
+                else
+                {
+                    wallFound = true;
+                    break; 
+                }
             }
             else if (direction == "left")
             {
@@ -75,7 +82,11 @@ public class Player : MonoBehaviour
                 {
                     tileX = tileX - 1;
                 }
-                else break;
+                else
+                {
+                    wallFound = true;
+                    break;
+                }
             }
             else if (direction == "up")
             {
@@ -83,7 +94,11 @@ public class Player : MonoBehaviour
                 {
                     tileY = tileY + 1;
                 }
-                else break;
+                else
+                {
+                    wallFound = true;
+                    break;
+                }
             }
             else if (direction == "down")
             {
@@ -91,7 +106,11 @@ public class Player : MonoBehaviour
                 {
                     tileY = tileY - 1;
                 }
-                else break;
+                else
+                {
+                    wallFound = true;
+                    break;
+                }
             }
             transform.position = map.TileCoordToWorldCoord(tileX, tileY);
             yield return new WaitForSeconds(1f);
@@ -123,6 +142,7 @@ public class Player : MonoBehaviour
     {
         if (attackString == "attack")
         {
+            map.CheckForEnemy();
             GameObject enemy = map.returnNearestEnemy();
             CheckIfCover(enemy);
             Vector3 attackDist = transform.position - enemy.transform.position;

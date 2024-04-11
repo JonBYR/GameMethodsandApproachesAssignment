@@ -38,12 +38,23 @@ public class PlayerInstructions : MonoBehaviour
             status.WipeString();
             ReplaySystem.recordTurn = true;
             if (s == "medkit") p.Heal();
-            else if (s == "trap") { Debug.Log("Calling"); p.TriggerTrip(); }
+            else if (s == "trap") 
+            { 
+                if(EventSpace.trapTriggered == false) p.TriggerTrip();
+                else
+                {
+                    status.TrapUsed();
+                    t.text = "";
+                    return;
+                }
+            }
             else
             {
                 status.InvalidMis();
+                t.text = "";
                 return;
             }
+            t.text = "";
         }
     }
     public void AttackTheEnemy(TMP_InputField t)
@@ -59,6 +70,7 @@ public class PlayerInstructions : MonoBehaviour
                 p.AttackEnemy(s);
             }
         }
+        t.text = "";
     }
     public void DirectThePlayer(TMP_InputField t)
     {
@@ -79,20 +91,24 @@ public class PlayerInstructions : MonoBehaviour
             if (!int.TryParse(words[1], out _)) //out _ discards the out parameter as this normally returns a number, however this is not required 
             {
                 status.InvalidInput();
+                t.text = "";
                 return;
             }
             if (int.Parse(words[1]) >= 4)
             {
                 status.CantMove();
+                t.text = "";
                 return;
             }
             if (!validDirections.AsQueryable().Contains(words[0]))
             {
                 status.InvalidInput();
+                t.text = "";
                 return;
             }
             ReplaySystem.recordTurn = true;
             StartCoroutine(p.moving(words[0], int.Parse(words[1])));
+            t.text = "";
         }
     }
 }
