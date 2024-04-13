@@ -21,6 +21,7 @@ public class ReloadGame : MonoBehaviour
             EventSpace.trapTriggered = false;
             canvas.SetActive(true);
             ReplaySystem.isPlaying = false;
+            PlayerHealth.setHealth(3);
             replayMusic.time = 0;
             replayMusic.Stop();
         }

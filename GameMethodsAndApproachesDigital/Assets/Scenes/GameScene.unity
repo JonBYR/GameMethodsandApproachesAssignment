@@ -1424,7 +1424,15 @@ MonoBehaviour:
 
     Green represents player, red represents
     enemies and the black square represents walls. Drag these around to help visualise
-    your game state.'
+    your game state.
+
+    Trap text does not update until the next turn. Be careful!
+
+    Player
+    can choose to move 0 tiles and hitting a wall ends your turn.
+
+    Press escape
+    to quit.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be3d3feb417abc542b281ed4dacf04a2, type: 2}
   m_sharedMaterial: {fileID: 5157052794508519636, guid: be3d3feb417abc542b281ed4dacf04a2, type: 2}
@@ -1451,8 +1459,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5303,6 +5311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1748652697}
   - component: {fileID: 1748652696}
+  - component: {fileID: 1748652698}
   m_Layer: 0
   m_Name: MovementObject
   m_TagString: Untagged
@@ -5343,6 +5352,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1748652698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748652695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ab6223762c72742a264035d97fe3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1864637616
 GameObject:
   m_ObjectHideFlags: 0
@@ -6056,11 +6077,11 @@ PrefabInstance:
       objectReference: {fileID: 509109169}
     - target: {fileID: 6416329127686752035, guid: 6c34d26f6186b8c4db2a2ecdeadbc361, type: 3}
       propertyPath: colliderSize.x
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6416329127686752035, guid: 6c34d26f6186b8c4db2a2ecdeadbc361, type: 3}
       propertyPath: colliderSize.y
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6844703903032806492, guid: 6c34d26f6186b8c4db2a2ecdeadbc361, type: 3}
       propertyPath: m_LocalPosition.x

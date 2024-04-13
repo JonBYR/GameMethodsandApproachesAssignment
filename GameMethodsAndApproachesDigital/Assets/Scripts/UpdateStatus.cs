@@ -43,7 +43,7 @@ public class UpdateStatus : MonoBehaviour
     }
     public void TrapText()
     {
-        information += "There is an enemy to defeat with a trap!\n";
+        information += "An enemy could be defeated by a trap!\n";
     }
     public void HitWall()
     {
