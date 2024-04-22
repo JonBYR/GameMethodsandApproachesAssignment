@@ -1428,11 +1428,11 @@ MonoBehaviour:
 
     Trap text does not update until the next turn. Be careful!
 
-    Player
-    can choose to move 0 tiles and hitting a wall ends your turn.
+    If
+    an enemy can be attacked but attack box is not active, use [direction] 0
 
-    Press escape
-    to quit.'
+    Press
+    escape to quit.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: be3d3feb417abc542b281ed4dacf04a2, type: 2}
   m_sharedMaterial: {fileID: 5157052794508519636, guid: be3d3feb417abc542b281ed4dacf04a2, type: 2}
@@ -2440,7 +2440,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 7e625b33389be39468ab96c289f87d6f, type: 2}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -6089,7 +6089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6844703903032806492, guid: 6c34d26f6186b8c4db2a2ecdeadbc361, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6844703903032806492, guid: 6c34d26f6186b8c4db2a2ecdeadbc361, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6136,6 +6136,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 344479546098103492, guid: ba0302c1742d4cb4c95a9b98e1e4c21b, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1032644494}
     - target: {fileID: 344479546098103492, guid: ba0302c1742d4cb4c95a9b98e1e4c21b, type: 3}
       propertyPath: map
       value: 

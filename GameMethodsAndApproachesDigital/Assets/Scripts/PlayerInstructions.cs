@@ -32,6 +32,7 @@ public class PlayerInstructions : MonoBehaviour
     public void Miscell(TMP_InputField t)
     {
         string s = t.text;
+        s = s.ToLower();
         if (EventSystem.current.currentSelectedGameObject == mis)
         {
             Debug.Log(s);
@@ -60,6 +61,7 @@ public class PlayerInstructions : MonoBehaviour
     public void AttackTheEnemy(TMP_InputField t)
     {
         string s = t.text;
+        s = s.ToLower();
         if (EventSystem.current.currentSelectedGameObject == attack)
         {
             if (Player.moved == true) return;
@@ -77,6 +79,7 @@ public class PlayerInstructions : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject == move)
         {
             string s = t.text;
+            s = s.ToLower();
             status.WipeString();
             Array.Clear(words, 0, 2); //clears the array by getting the starting index and the number of elements to remove from that index
             if (!s.Contains(' '))
